@@ -15,7 +15,5 @@ public interface ProductService {
     void deleteProductById(Long id);
 
     public Page<Products> getPaginatedProducts(Pageable pageable);
-//    Page<Products> getPaginatedProducts(Pageable pageable);
 
-    //Page<Products> getPaginatedProducts(org.springframework.data.domain.Pageable pageable);
 }

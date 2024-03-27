@@ -37,13 +37,8 @@ public class ProductController {
         return optionalProduct.orElse(null); // Spring handles null return as 404
     }
 
-//     Read operation (Get all products)
-//    @GetMapping
-//    public List<Products> getAllProducts() {
-//        return productService.getAllProducts();
-//    }
 
-    ///pagination
+    ///pagination with Read operation (Get all products)
     @GetMapping
     public Object getProductById(@RequestParam(name = "page", required = false) Integer page) {
         int pageSize = 2; // Default page size
@@ -71,7 +66,7 @@ public class ProductController {
     }
 
 
-    // Custom response object to include page number and products
+    // Custom response object to include page number and products for pagination
     static class ProductPageResponse {
         private int pageNumber;
         private List<Products> products;

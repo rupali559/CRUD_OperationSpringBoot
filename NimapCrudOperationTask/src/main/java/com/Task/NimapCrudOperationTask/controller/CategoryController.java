@@ -25,7 +25,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    // Create operation
+    // Create operation or Insert value
     @PostMapping
     public ResponseEntity<String> createCategory(@RequestBody Category category) {
         Category existingCategory = categoryService.findByName(category.getName());
@@ -38,32 +38,24 @@ public class CategoryController {
         return ResponseEntity.ok("Category inserted successfully");
     }
 
-    //Read operation (Get all categories)
-//    @GetMapping
-//    public List<Category> getAllCategoriesDetails() {
-//        return categoryService.getAllCategory();
-//    }
-
-
-
-    // Read operation (Get category by ID)
+    // Read operation (Get category by ID) and Pgination
     @GetMapping
     public Object getCategoryById(@RequestParam(name = "page", required = false) Integer page) {
         int pageSize = 2; // Default page size
 
-        int totalProducts = categoryService.getAllCategory().size();
-        int totalPages = (int) Math.ceil((int) totalProducts / pageSize);
+        int totalCategory = categoryService.getAllCategory().size();
+        int totalPages = (int) Math.ceil((int) totalCategory / pageSize);
 
         if(page != null){
-            if(page < 1 || page > totalPages){
+            if(page < 1 || page > totalCategory){
                 return "Invalid page number";
             } else {
                 PageRequest pageRequest = PageRequest.of(page - 1, pageSize); // Page numbers start from 0
-                Page<Category> productPage = categoryService.getPaginatedCategories(pageRequest);
+                Page<Category> categoryPage = categoryService.getPaginatedCategories(pageRequest);
 
 
                 int  remainingPages = totalPages - page;
-                return new CategoryController.ProductPageResponse(page, productPage.getContent(), remainingPages);
+                return new CategoryController.ProductPageResponse(page, categoryPage.getContent(), remainingPages);
             }
         }
         else {
@@ -74,7 +66,7 @@ public class CategoryController {
     }
 
 
-    // Custom response object to include page number and products
+    // Custom response object to include page number and products for pagination
     static class ProductPageResponse {
         private int pageNumber;
         private List<Category> category;

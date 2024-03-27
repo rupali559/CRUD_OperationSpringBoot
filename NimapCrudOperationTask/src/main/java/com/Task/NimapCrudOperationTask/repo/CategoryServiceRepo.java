@@ -8,8 +8,6 @@ import java.util.List;
 
 
 public interface CategoryServiceRepo extends JpaRepository<Category,Long> {
-    //category name display in product table
     Category findByName(String name);
 
-//    List<Category> getAllCategories();
 }
