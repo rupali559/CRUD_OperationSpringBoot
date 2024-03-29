@@ -38,6 +38,7 @@ public class CategoryController {
         return ResponseEntity.ok("Category inserted successfully");
     }
 
+
     // Read operation (Get category by ID) and Pgination
     @GetMapping
     public Object getCategoryById(@RequestParam(name = "page", required = false) Integer page) {
@@ -101,11 +102,11 @@ public class CategoryController {
 
     // Update operation using id
     @PutMapping("/{id}")
-    public String updateCategory(@PathVariable Long id, @RequestBody Category categoryDetails) {
+    public String updateCategory(@PathVariable Long id, @RequestBody Category category) {
         Optional<Category> optionalCategory = categoryService.getCategoryById(id);
         if (optionalCategory.isPresent()) {
             Category existingCategory = optionalCategory.get();
-            existingCategory.setName(categoryDetails.getName()); // Update category's name
+            existingCategory.setName(category.getName()); // Update category's name
             categoryService.createCategory(existingCategory);
             return "Category updated successfully";
         } else {

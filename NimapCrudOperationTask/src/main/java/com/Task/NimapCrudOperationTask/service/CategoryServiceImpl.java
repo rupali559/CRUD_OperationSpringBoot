@@ -14,13 +14,14 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    //instantiated CategoryServiceRepo
     private  CategoryServiceRepo categoryServiceRepo;
 
     @Autowired
     public CategoryServiceImpl(CategoryServiceRepo categoryServiceRepo) {
         this.categoryServiceRepo = categoryServiceRepo;
     }
-
+    //save to db
     @Override
     public Category createCategory(Category category) {
         return categoryServiceRepo.save(category);
@@ -39,13 +40,14 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findByName(String name) {
         return categoryServiceRepo.findByName(name);
     }
-
+    //save to db
     @Override
-    public void updateCategory(Long id, Category updatedCategory) {
+    public void updateCategory(Long id, Category category) {
+        // Retrieve the category from the repository by its ID
         Optional<Category> optionalCategory = categoryServiceRepo.findById(id);
         if (optionalCategory.isPresent()) {
             Category existingCategory = optionalCategory.get();
-            existingCategory.setName(updatedCategory.getName()); // Update category's name
+            existingCategory.setName(category.getName()); // Update category's name
             categoryServiceRepo.save(existingCategory);
         } else {
             throw new IllegalArgumentException("Category not found with id: " + id);
@@ -61,6 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new IllegalArgumentException("Category not found with id: " + id);
         }
     }
+
     //pagination
     @Override
     public Page<Category> getPaginatedCategories(Pageable pageable) {

@@ -94,13 +94,13 @@ public class ProductController {
 
     // Update operation using ID
     @PutMapping("/{id}")
-    public String updateProduct(@PathVariable Long id, @RequestBody Products productDetails) {
+    public String updateProduct(@PathVariable Long id, @RequestBody Products product) {
         Optional<Products> optionalProduct = productService.getProductById(id);
         if (optionalProduct.isPresent()) {
             Products existingProduct = optionalProduct.get();
-            existingProduct.setName(productDetails.getName()); // Update product's name
-            existingProduct.setPrice(productDetails.getPrice()); // Update product's price
-            existingProduct.setCategory(productDetails.getCategory()); // Update product's category
+            existingProduct.setName(product.getName()); // Update product's name
+            existingProduct.setPrice(product.getPrice()); // Update product's price
+            existingProduct.setCategory(product.getCategory()); // Update product's category
             productService.saveProduct(existingProduct);
             return "Product updated successfully";
         } else {
