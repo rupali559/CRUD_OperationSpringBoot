@@ -1,3 +1,4 @@
+For Category
 1.Open Postman.
 2.Create a new request.
 3.Set the request type to POST.
@@ -12,8 +13,14 @@
 }
 
 For Products
-POST: http://localhost:8080/api/products
-
+1.Open Postman.
+2.Create a new request.
+3.Set the request type to POST.
+4.Enter the URL of your endpoint (e.g., http://localhost:8080/api/products).
+5.Switch to the "Body" tab.
+6.Select "raw" and then choose "JSON" from the dropdown.
+7.Paste the JSON code representing your category data into the body field.
+8.Click on the "Send" button to send the request.
 
 {
     "name": "Example Product",
